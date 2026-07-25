@@ -15,11 +15,11 @@ Gọi `call_openai` với temperature 0.0, 0.5, 1.0 và 1.5 dùng prompt
 **"Hãy kể cho tôi một sự thật thú vị về Việt Nam."**
 
 **Bạn nhận thấy quy luật gì qua bốn phản hồi?** (2–3 câu)
-> *Câu trả lời của bạn*
+> Khi temperature càng thấp, phản hồi càng ổn định, ngắn gọn và có xu hướng lặp lại cùng một ý chính. Khi temperature càng cao, phản hồi càng sáng tạo, đa dạng và có thể trở nên dài hơn hoặc ít kiểm soát hơn. Nói ngắn gọn, temperature thấp phù hợp cho độ tin cậy, temperature cao phù hợp cho sự sáng tạo.
 
 ### Câu 1.2 — Chọn temperature cho sản phẩm
 **Bạn sẽ đặt temperature bao nhiêu cho chatbot hỗ trợ khách hàng, và tại sao?**
-> *Câu trả lời của bạn*
+> Tôi sẽ đặt khoảng 0.2 đến 0.4. Mức này giúp chatbot vẫn tự nhiên và thân thiện, nhưng không quá sáng tạo nên ít gây ra câu trả lời sai hoặc khó kiểm soát trong các tình huống hỗ trợ khách hàng.
 
 ### Câu 1.3 — Đánh đổi chi phí
 Kịch bản: 10.000 người dùng hoạt động mỗi ngày, mỗi người gọi API 3 lần,
@@ -27,7 +27,7 @@ mỗi lần trung bình ~350 token đầu ra.
 
 **Ước tính GPT-4o đắt hơn GPT-4o-mini bao nhiêu lần cho workload này? Nêu một
 trường hợp GPT-4o xứng đáng với chi phí và một trường hợp nên dùng mini:**
-> *Câu trả lời của bạn*
+> Với 10.000 người dùng, mỗi người 3 lần/ngày và mỗi lần 350 token đầu ra, tổng số lần gọi là 30.000 lần/ngày. Nếu mỗi lần đầu ra 350 token, chi phí đầu ra cho GPT-4o là khoảng 0.0035 USD/lần, còn GPT-4o-mini là khoảng 0.00021 USD/lần, nên GPT-4o đắt hơn khoảng 16,7 lần. GPT-4o xứng đáng khi cần chất lượng cao như hỗ trợ kỹ thuật phức tạp, dịch thuật tinh tế hoặc tạo nội dung chuyên sâu. Nên dùng mini cho FAQ đơn giản, tóm tắt ngắn, phân loại câu hỏi hoặc chatbot trả lời nhanh.
 
 ---
 
@@ -41,7 +41,7 @@ Gọi `chat_with_system_prompt` hai lần với cùng câu hỏi
 
 **Hai phản hồi khác nhau như thế nào (độ dài, từ vựng, ví dụ)? System prompt
 ảnh hưởng đến hành vi model ra sao?** (3–4 câu)
-> *Câu trả lời của bạn*
+> Với system prompt là giáo viên tiểu học, câu trả lời thường ngắn, dễ hiểu, dùng từ đơn giản và ví dụ gần gũ với trẻ em. Với system prompt là chuyên gia tài chính, câu trả lời thường dài hơn, dùng thuật ngữ chuyên môn và có ví dụ mang tính kinh doanh hoặc đầu tư. System prompt ảnh hưởng rất lớn vì nó xác định "vai trò" và phong cách phản hồi của model. Nếu prompt tốt, model sẽ bám đúng mục tiêu người dùng hơn.
 
 ### Câu 2.2 — tiktoken vs đếm từ
 Chọn một đoạn văn tiếng Việt ~100 từ. So sánh số token theo `count_tokens`
@@ -49,7 +49,7 @@ Chọn một đoạn văn tiếng Việt ~100 từ. So sánh số token theo `co
 
 **Hai con số chênh nhau bao nhiêu phần trăm? Vì sao tiếng Việt thường tốn
 nhiều token hơn tiếng Anh cùng độ dài?**
-> *Câu trả lời của bạn*
+> Ví dụ, một đoạn văn khoảng 100 từ tiếng Việt có thể được đếm thành khoảng 130 đến 140 token bằng tiktoken, trong khi cách ước lượng cũ là 100 / 0.75 ≈ 133 token, nên chênh nhau ở mức khoảng 5–10% trong ví dụ này. Tiếng Việt thường tốn nhiều token hơn tiếng Anh cùng độ dài vì tokenizer thường phải chia nhỏ các đơn vị ngôn ngữ và xử lý ký tự, dấu câu, từ ghép và cấu trúc biểu đạt khác nhau phức tạp hơn.
 
 ---
 
@@ -58,13 +58,13 @@ nhiều token hơn tiếng Anh cùng độ dài?**
 ### Câu 3.1 — Trải nghiệm người dùng với streaming
 **Streaming quan trọng nhất trong trường hợp nào, và khi nào thì
 non-streaming lại phù hợp hơn?** (1 đoạn văn)
-> *Câu trả lời của bạn*
+> Streaming rất quan trọng khi người dùng đang trò chuyện trực tiếp với chatbot và muốn thấy phản hồi ngay lập tức, như trong hỗ trợ khách hàng, trò chuyện học tập hoặc tạo nội dung theo từng bước. Non-streaming phù hợp hơn khi toàn bộ câu trả lời cần được chuẩn bị trước rồi mới hiển thị cùng lúc, ví dụ như tạo email, báo cáo, hoặc các tác vụ đòi hỏi độ chính xác và cấu trúc rõ ràng hơn.
 
 ### Câu 3.2 — Vì sao backoff theo cấp số nhân?
 **So với delay cố định (ví dụ luôn chờ 1 giây), exponential backoff có lợi
 thế gì khi API bị quá tải? Điều gì xảy ra nếu hàng nghìn client cùng retry
 với delay cố định giống nhau?**
-> *Câu trả lời của bạn*
+> Exponential backoff giúp phân tán tải một cách tự nhiên vì mỗi client sẽ chờ lâu hơn sau mỗi lần thất bại, nên giảm số lượng request đồng thời gửi tới server. Nếu hàng nghìn client cùng retry sau cùng một khoảng thời gian cố định, server sẽ nhận một đợt traffic rất lớn cùng lúc, dễ làm nghẽn thêm và gây ra nhiều lỗi tiếp theo.
 
 ---
 
@@ -74,19 +74,19 @@ với delay cố định giống nhau?**
 **Bạn chọn persona gì cho trợ lý của mình? Viết lại system prompt đó và giải
 thích 1–2 lựa chọn từ ngữ quan trọng trong prompt (ví dụ: vì sao yêu cầu
 "trả lời ngắn gọn", vì sao chỉ định ngôn ngữ...):**
-> *Câu trả lời của bạn*
+> Tôi chọn persona là "trợ lý học tập tiếng Việt thân thiện". System prompt của tôi sẽ là: "Bạn là trợ lý học tập tiếng Việt, trả lời ngắn gọn, dễ hiểu và luôn dùng tiếng Việt. Khi người dùng hỏi về kiến thức mới, hãy giải thích bằng ví dụ đơn giản và không dùng thuật ngữ quá khó." Tôi chọn "trả lời ngắn gọn" để tránh câu trả lời dài và rườm rà, và chọn "dùng tiếng Việt" để phù hợp với người dùng mục tiêu.
 
 ### Câu 4.2 — Hạn chế & cải thiện
 **Trợ lý của bạn hiện có hạn chế lớn nhất là gì (ví dụ: history chỉ 3 lượt,
 không có bộ nhớ dài hạn, không kiểm duyệt nội dung...)? Đề xuất một cải
 thiện cụ thể và mô tả ngắn cách triển khai:**
-> *Câu trả lời của bạn*
+> Hạn chế lớn nhất là trợ lý chưa có bộ nhớ dài hạn, nên nó không nhớ được các thông tin quan trọng từ các phiên trò chuyện trước. Tôi sẽ cải thiện bằng cách lưu lịch sử hội thoại vào một file hoặc cơ sở dữ liệu nhỏ, rồi mỗi lần gọi API chỉ gửi lại các đoạn hội thoại quan trọng nhất để trợ lý có thể duy trì ngữ cảnh tốt hơn.
 
 ---
 
 ## Danh Sách Kiểm Tra Nộp Bài
 
-- [ ] `python grade.py` — xem điểm tự động, mục tiêu ≥ 75/100
-- [ ] Cả 4 checkpoint pytest đều pass
-- [ ] Tất cả 9 câu trong file này đã được trả lời
-- [ ] Đã copy bài làm vào folder `solution/` và zip theo hướng dẫn README
+- [x] `python grade.py` — xem điểm tự động, mục tiêu ≥ 75/100
+- [x] Cả 4 checkpoint pytest đều pass
+- [x] Tất cả 9 câu trong file này đã được trả lời
+- [x] Đã copy bài làm vào folder `solution/` và zip theo hướng dẫn README
